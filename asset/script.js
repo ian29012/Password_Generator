@@ -89,18 +89,54 @@ var upperCasedCharacters = [
 ];
 
 // Function to prompt user for password options
-function getPasswordOptions() {
-
-}
-
-// Function for getting a random element from an array
-function getRandom(arr) {
-
-}
-
-// Function to generate password with user input
 function generatePassword() {
 
+  // At least 10 characters but no more than 64.
+  var pwLength = (prompt("Please enter the length of password:\nBetween 10 and 64"));
+  while ( pwLength <= 9 || pwLength >= 65) {
+  alert("please enter a valid tag:\nBetween 10 and 64");
+  var pwLength = (prompt("Please enter the length of password:\nBetween 10 and 64"));
+  }
+  //  Code should validate for each input and at least one character type should be selected
+//  Once prompts are answered then the password should be generated and displayed in an alert or written to the page
+  var pwLowerCase = confirm("Does your password needs lowercase characters?");
+  var pwUpperCase = confirm("Does your password needs UPPERCASE characters?");
+  var pwNumeric = confirm("Does your password needs numeric characters?");
+  var pwSpecial = confirm("Does your password needs special characters?");
+
+  // If all with Cancel
+  while ( pwLowerCase == false && pwUpperCase == false && pwNumeric == false && pwSpecial == false){
+  alert("Please select at least one characher for generate.");
+  var pwLowerCase = confirm("Does your password needs lowercase characters?");
+  var pwUpperCase = confirm("Does your password needs UPPERCASE characters?");
+  var pwNumeric = confirm("Does your password needs numeric characters?");
+  var pwSpecial = confirm("Does your password needs special characters?");
+  }
+  var pwGenerator = [];
+
+  if (pwLowerCase) {
+  pwGenerator = pwGenerator.concat(lowerCasedCharacters)
+  }
+
+  if (pwUpperCase) {
+    pwGenerator = pwGenerator.concat(upperCasedCharacters)
+  }
+
+  if (pwNumeric) {
+    pwGenerator = pwGenerator.concat(numericCharacters)
+  }
+
+  if (pwSpecial) {
+    pwGenerator = pwGenerator.concat(specialCharacters)
+  }
+  
+  // Function for getting a random element from an array
+  var gPassword = "";
+
+  for (var i = 0; i < pwLength; i++) {
+    gPassword = gPassword + pwGenerator[Math.floor(Math.random() * pwGenerator.length)];
+  }
+  return gPassword;
 }
 
 // Get references to the #generate element
